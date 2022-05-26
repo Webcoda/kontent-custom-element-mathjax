@@ -1,0 +1,16 @@
+.App {
+	margin: 24px auto;
+	max-width: 640px;
+	padding: 0 24px;
+	font-size: 1rem;
+}
+
+label {
+	font-weight: 700;
+}
+
+textarea {
+	width: 100%;
+	display: block;
+	margin-top: 8px;
+}

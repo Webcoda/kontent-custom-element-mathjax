@@ -9,11 +9,31 @@ function App() {
 	const ref = useRef(null)
 
 	useEffect(() => {
-		console.log(window.isDisabled);
 		// Setup with initial value and disabled state
-		setFormula(window.inputValue);
-		setDisabled(window.isDisabled);
-		window.CustomElement.setHeight(Math.max(200, ref.current.clientHeight));
+		function initCustomElement() {
+			console.log("init");
+			try {
+				CustomElement.init((element, context) => {
+					// Setup with initial value and disabled state
+					setFormula(element.value);
+				});
+
+				// React on disabled changed (e.g. when publishing the item)
+				CustomElement.onDisabledChanged((_disabled) => {
+					setDisabled(_disabled);
+				});
+
+				window.CustomElement.setHeight(
+					Math.max(200, ref.current.clientHeight)
+				);
+			} catch (err) {
+				// Initialization with Kentico Custom element API failed (page displayed outside of the Kentico UI)
+				console.error(err);
+			}
+		}
+
+		initCustomElement();
+
 	}, [])
 
 	return (

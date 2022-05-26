@@ -7,33 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MathJax</title>
     <script src="https://app.kontent.ai/js-api/custom-element.js"></script>
-    <script>
-        window.inputValue;
-        window.isDisabled = false;
-
-        function initCustomElement() {
-			console.log('init')
-            try {
-                CustomElement.init((element, context) => {
-                    // Setup with initial value and disabled state
-                    window.inputValue = element.value;
-                });
-
-                // React on disabled changed (e.g. when publishing the item)
-                CustomElement.onDisabledChanged((_disabled) => {
-                    console.log(_disabled)
-                    window.isDisabled = _disabled;
-                });
-
-                window.CustomElement.setHeight(200);
-            } catch (err) {
-                // Initialization with Kentico Custom element API failed (page displayed outside of the Kentico UI)
-                console.error(err);
-            }
-        }
-
-        initCustomElement();
-    </script>
 </head>
 
 <body>

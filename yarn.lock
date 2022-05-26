@@ -294,6 +294,13 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-mathjax@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@types/react-mathjax/-/react-mathjax-1.0.1.tgz#aa942bb5e0be09a39b2f5d629afc275aa090ce0d"
+  integrity sha512-XhOdKuHti4yLTAd+/UBXvzvAisgHU6J9CV3isLks2HDbmZCXw9CEJFHCOW19EwqaZe+oVOgOSg5IPzUd4mQGCA==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react@*", "@types/react@^18.0.0":
   version "18.0.9"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-18.0.9.tgz#d6712a38bd6cd83469603e7359511126f122e878"

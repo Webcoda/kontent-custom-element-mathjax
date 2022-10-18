@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import MathJax from "react-mathjax";
+import MathJax from "react-mathjax-preview";
 import "./App.css";
 
 
@@ -42,29 +42,36 @@ function App() {
 	}, [])
 
 	return (
-		<MathJax.Provider script="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-			<div ref={ref} className="App">
-				<header className="App-header">
-					<label>
-						Input:
-						<textarea
-							disabled={disabled}
-							placeholder={config?.placeholder || 'Input Latex/MathML formula here'}
-							value={formula}
-							onChange={(e) => {
-								setFormula(e.target.value);
-								window.CustomElement.setValue(e.target.value);
-							}}
-						/>
-					</label>
+		<div ref={ref} className="App">
+			<header className="App-header">
+				<label>
+					Input:
+					<textarea
+						disabled={disabled}
+						placeholder={
+							config?.placeholder ||
+							"Input Latex/MathML formula here"
+						}
+						value={formula}
+						onChange={(e) => {
+							setFormula(e.target.value);
+							window.CustomElement.setValue(e.target.value);
+						}}
+					/>
+				</label>
 
-					<div style={{ marginTop: 8 }}>
-						<strong>Formula:</strong>
-						<MathJax.Node formula={formula}></MathJax.Node>
-					</div>
-				</header>
-			</div>
-		</MathJax.Provider>
+				<div style={{ marginTop: 8 }}>
+					<strong>Formula:</strong>
+					<MathJax
+						id=""
+						script={config?.script}
+						config={config?.config}
+						math={formula}
+						style={{ display: "" }}
+					></MathJax>
+				</div>
+			</header>
+		</div>
 	);
 }
 

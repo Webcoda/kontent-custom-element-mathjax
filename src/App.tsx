@@ -7,6 +7,7 @@ function App() {
 	const [formula, setFormula] = useState('');
 	const [disabled, setDisabled] = useState(false);
 	const ref = useRef(null)
+	const [config, setConfig] = useState<any>(null);
 
 	useEffect(() => {
 		// Setup with initial value and disabled state
@@ -16,6 +17,10 @@ function App() {
 				CustomElement.init((element, context) => {
 					// Setup with initial value and disabled state
 					setFormula(element.value);
+
+					if(element.config) {
+						setConfig(element.config)
+					}
 				});
 
 				// React on disabled changed (e.g. when publishing the item)
@@ -37,14 +42,17 @@ function App() {
 	}, [])
 
 	return (
-		<MathJax.Provider>
+		<MathJax.Provider script="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 			<div ref={ref} className="App">
 				<header className="App-header">
 					<label>
 						Input:
-						<textarea disabled={disabled} placeholder="input Latex formula here" value={formula}
+						<textarea
+							disabled={disabled}
+							placeholder={config?.placeholder || 'Input Latex/MathML formula here'}
+							value={formula}
 							onChange={(e) => {
-								setFormula(e.target.value)
+								setFormula(e.target.value);
 								window.CustomElement.setValue(e.target.value);
 							}}
 						/>

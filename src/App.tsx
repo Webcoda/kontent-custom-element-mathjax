@@ -2,6 +2,9 @@ import { useState, useEffect, useRef } from "react";
 import MathJax from "react-mathjax-preview";
 import "./App.css";
 
+const removeMmlNamespace = (value) => {
+	return value.replace(/\<mml\:/gi, "<").replace(/\<\/mml\:/gi, "</");
+}
 
 function App() {
 	const [formula, setFormula] = useState('');
@@ -16,7 +19,7 @@ function App() {
 			try {
 				CustomElement.init((element, context) => {
 					// Setup with initial value and disabled state
-					setFormula(element.value);
+					setFormula(element.value || '');
 
 					if(element.config) {
 						setConfig(element.config)
@@ -28,9 +31,7 @@ function App() {
 					setDisabled(_disabled);
 				});
 
-				window.CustomElement.setHeight(
-					Math.max(200, ref.current.clientHeight)
-				);
+				window.CustomElement.setHeight(200);
 			} catch (err) {
 				// Initialization with Kentico Custom element API failed (page displayed outside of the Kentico UI)
 				console.error(err);
@@ -54,8 +55,9 @@ function App() {
 						}
 						value={formula}
 						onChange={(e) => {
-							setFormula(e.target.value);
-							window.CustomElement.setValue(e.target.value);
+							const { value } = e.target
+							setFormula(value);
+							window.CustomElement.setValue(value);
 						}}
 					/>
 				</label>
@@ -66,7 +68,7 @@ function App() {
 						id=""
 						script={config?.script}
 						config={config?.config}
-						math={formula}
+						math={removeMmlNamespace(formula)}
 						style={{ display: "" }}
 					></MathJax>
 				</div>
